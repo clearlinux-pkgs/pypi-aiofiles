@@ -4,12 +4,13 @@
 #
 Name     : pypi-aiofiles
 Version  : 0.8.0
-Release  : 2
+Release  : 3
 URL      : https://files.pythonhosted.org/packages/10/ca/c416cfacf6a47e1400dad56eab85aa86c92c6fbe58447d12035e434f0d5c/aiofiles-0.8.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/10/ca/c416cfacf6a47e1400dad56eab85aa86c92c6fbe58447d12035e434f0d5c/aiofiles-0.8.0.tar.gz
 Summary  : File support for asyncio.
 Group    : Development/Tools
 License  : Apache-2.0
+Requires: pypi-aiofiles-filemap = %{version}-%{release}
 Requires: pypi-aiofiles-license = %{version}-%{release}
 Requires: pypi-aiofiles-python = %{version}-%{release}
 Requires: pypi-aiofiles-python3 = %{version}-%{release}
@@ -21,6 +22,14 @@ aiofiles: file support for asyncio
 ==================================
 .. image:: https://img.shields.io/pypi/v/aiofiles.svg
 :target: https://pypi.python.org/pypi/aiofiles
+
+%package filemap
+Summary: filemap components for the pypi-aiofiles package.
+Group: Default
+
+%description filemap
+filemap components for the pypi-aiofiles package.
+
 
 %package license
 Summary: license components for the pypi-aiofiles package.
@@ -42,6 +51,7 @@ python components for the pypi-aiofiles package.
 %package python3
 Summary: python3 components for the pypi-aiofiles package.
 Group: Default
+Requires: pypi-aiofiles-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(aiofiles)
 
@@ -52,13 +62,16 @@ python3 components for the pypi-aiofiles package.
 %prep
 %setup -q -n aiofiles-0.8.0
 cd %{_builddir}/aiofiles-0.8.0
+pushd ..
+cp -a aiofiles-0.8.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1649705270
+export SOURCE_DATE_EPOCH=1652992229
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -69,6 +82,15 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 -m build --wheel --skip-dependency-check --no-isolation
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 -m build --wheel --skip-dependency-check --no-isolation
+
+popd
 
 %install
 export MAKEFLAGS=%{?_smp_mflags}
@@ -79,9 +101,22 @@ pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+pip install --root=%{buildroot}-v3 --no-deps --ignore-installed dist/*.whl
+popd
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-pypi-aiofiles
 
 %files license
 %defattr(0644,root,root,0755)
