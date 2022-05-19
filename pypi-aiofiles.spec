@@ -4,13 +4,12 @@
 #
 Name     : pypi-aiofiles
 Version  : 0.8.0
-Release  : 3
+Release  : 4
 URL      : https://files.pythonhosted.org/packages/10/ca/c416cfacf6a47e1400dad56eab85aa86c92c6fbe58447d12035e434f0d5c/aiofiles-0.8.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/10/ca/c416cfacf6a47e1400dad56eab85aa86c92c6fbe58447d12035e434f0d5c/aiofiles-0.8.0.tar.gz
 Summary  : File support for asyncio.
 Group    : Development/Tools
 License  : Apache-2.0
-Requires: pypi-aiofiles-filemap = %{version}-%{release}
 Requires: pypi-aiofiles-license = %{version}-%{release}
 Requires: pypi-aiofiles-python = %{version}-%{release}
 Requires: pypi-aiofiles-python3 = %{version}-%{release}
@@ -22,14 +21,6 @@ aiofiles: file support for asyncio
 ==================================
 .. image:: https://img.shields.io/pypi/v/aiofiles.svg
 :target: https://pypi.python.org/pypi/aiofiles
-
-%package filemap
-Summary: filemap components for the pypi-aiofiles package.
-Group: Default
-
-%description filemap
-filemap components for the pypi-aiofiles package.
-
 
 %package license
 Summary: license components for the pypi-aiofiles package.
@@ -51,7 +42,6 @@ python components for the pypi-aiofiles package.
 %package python3
 Summary: python3 components for the pypi-aiofiles package.
 Group: Default
-Requires: pypi-aiofiles-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(aiofiles)
 
@@ -71,7 +61,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1652992229
+export SOURCE_DATE_EPOCH=1652994169
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -113,10 +103,6 @@ popd
 
 %files
 %defattr(-,root,root,-)
-
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-pypi-aiofiles
 
 %files license
 %defattr(0644,root,root,0755)
