@@ -1,5 +1,5 @@
 PKG_NAME := pypi-aiofiles
-URL = https://files.pythonhosted.org/packages/13/1f/358e0604f35b05ef0cd91402d83aece5b8a9595da2de9b4faf09aa24b460/aiofiles-23.2.0.tar.gz
+URL = https://files.pythonhosted.org/packages/af/41/cfed10bc64d774f497a86e5ede9248e1d062db675504b41c320954d99641/aiofiles-23.2.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common

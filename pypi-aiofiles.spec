@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-aiofiles
-Version  : 23.2.0
-Release  : 18
-URL      : https://files.pythonhosted.org/packages/13/1f/358e0604f35b05ef0cd91402d83aece5b8a9595da2de9b4faf09aa24b460/aiofiles-23.2.0.tar.gz
-Source0  : https://files.pythonhosted.org/packages/13/1f/358e0604f35b05ef0cd91402d83aece5b8a9595da2de9b4faf09aa24b460/aiofiles-23.2.0.tar.gz
+Version  : 23.2.1
+Release  : 19
+URL      : https://files.pythonhosted.org/packages/af/41/cfed10bc64d774f497a86e5ede9248e1d062db675504b41c320954d99641/aiofiles-23.2.1.tar.gz
+Source0  : https://files.pythonhosted.org/packages/af/41/cfed10bc64d774f497a86e5ede9248e1d062db675504b41c320954d99641/aiofiles-23.2.1.tar.gz
 Summary  : File support for asyncio.
 Group    : Development/Tools
 License  : Apache-2.0
@@ -61,10 +61,10 @@ python3 components for the pypi-aiofiles package.
 
 
 %prep
-%setup -q -n aiofiles-23.2.0
-cd %{_builddir}/aiofiles-23.2.0
+%setup -q -n aiofiles-23.2.1
+cd %{_builddir}/aiofiles-23.2.1
 pushd ..
-cp -a aiofiles-23.2.0 buildavx2
+cp -a aiofiles-23.2.1 buildavx2
 popd
 
 %build
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1691592560
+export SOURCE_DATE_EPOCH=1691677425
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
