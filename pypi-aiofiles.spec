@@ -7,7 +7,7 @@
 #
 Name     : pypi-aiofiles
 Version  : 23.2.1
-Release  : 22
+Release  : 23
 URL      : https://files.pythonhosted.org/packages/af/41/cfed10bc64d774f497a86e5ede9248e1d062db675504b41c320954d99641/aiofiles-23.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/af/41/cfed10bc64d774f497a86e5ede9248e1d062db675504b41c320954d99641/aiofiles-23.2.1.tar.gz
 Summary  : File support for asyncio.
